@@ -122,7 +122,6 @@ class WebLoginView extends GetView<LoginController> {
   }
 
   Widget userTypeDropDown() {
-    print("Building userTypeDropDown");
     return InputDecorator(
       decoration: AppInputDecoration.inputDecorationFormWithBorder(
         isFreeze: false,

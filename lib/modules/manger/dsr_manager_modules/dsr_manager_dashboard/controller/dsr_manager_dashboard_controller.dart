@@ -33,11 +33,9 @@ class DSRManagerDashboardController extends GetxController {
   Future<void> getDSRManagerDashData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? encodedUsername = prefs.getString('Username');
-    print('Username$encodedUsername');
 
     if (encodedUsername != null) {
       String decodedUsername = utf8.decode(base64.decode(encodedUsername));
-      print('decodedUsername');
 
       await getDSRManagerDashDataServices.getDSRManagerDashDataServices(
         userName: '898467',

@@ -16,13 +16,11 @@ class DsrActivityController extends GetxController {
   Future<void> getDailyActivityReportDataDSR() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString('Username'); // Retrieve as String
-    print('Retrieved Username: $username');
     if (username != null) {
       await getDataService.getDSRDailyActivityReport(
         username: int.parse(username), // Convert to int
         onSuccess: (res) {
           responceDSRAcitvityDetails.value = res.cast<ResponsegetDsRdetials>();
-          print('Response DSR Activity Details: $responceDSRAcitvityDetails');
           isDataLoaded(true);
         },
         onFailed: (error) {
@@ -30,7 +28,6 @@ class DsrActivityController extends GetxController {
         },
       );
     }
-    print('DSR get controller executed');
   }
 
   Future<void> getSubTypeOfActivityData(int username) async {
@@ -39,13 +36,11 @@ class DsrActivityController extends GetxController {
       onSuccess: (res) {
         responceSubTypeOfActivityDSRDetails.value = res.cast<DSRSubTypeOfActivity>();
         subTypeOfAcitivityList.value = res.map((report) => report.subTypeOfActivity!).toList();
-        print('Response Sub Type Of Activity DSR Details: $responceSubTypeOfActivityDSRDetails');
         isDataLoaded(true);
       },
       onFailed: (error) {
         log('Error: $error');
       },
     );
-    print('DSR get activity controller executed');
   }
 }

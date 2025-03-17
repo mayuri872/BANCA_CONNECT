@@ -15,33 +15,26 @@ class GetNetworkProvider extends GetConnect {
 
   Future<dynamic> getDSR({
     required RequestgetDsRdetials payload,
-    required Function(List<ResponsegetDsRdetials> DSRdailyActivityList) onSuccess,
+    required Function(List<ResponsegetDsRdetials> dSRdailyActivityList) onSuccess,
     required Function(String? error) onFailed,
   }) async {
     try {
-      String resourcesUrl = (baseurl! + DSRApiEndPoints().DSRdailyActivityReport);
+      String resourcesUrl = (baseurl! + DSRApiEndPoints().dSRdailyActivityReport);
       final request = http.Request('POST', Uri.parse(resourcesUrl));
       request.body = jsonEncode(payload.toJson());
       request.headers['Content-Type'] = 'application/json';
 
       final interceptedRequest = await _interceptor.interceptRequest(request);
-      print('Request Headers: ${interceptedRequest.headers}');
-      print('Request Body: ${interceptedRequest.body}');
-      print('resourcesUrl: $resourcesUrl');
-    print('Request: ${payload.toJson()}');
 
       final streamedResponse = await http.Client().send(interceptedRequest);
       final response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 200) {
-        print('Status Code: ${response.statusCode}');
         var responseDataJson = jsonDecode(response.body);
-        print('Response Data JSON: $responseDataJson');
         if (responseDataJson['ResponseFlag'] == 1) {
           var nestedResponseJson = jsonDecode(responseDataJson['ResponseMessage']);
-          print('Nested Response JSON: $nestedResponseJson');
           if (nestedResponseJson['Table'] is List) {
-            List<ResponsegetDsRdetials> DSRdailyAcivityList = (nestedResponseJson['Table'] as List)
+            List<ResponsegetDsRdetials> dSRdailyAcivityList = (nestedResponseJson['Table'] as List)
                 .map((item) {
                   // Handle subTypeOfActivity field
                   if (item['subTypeOfActivity'] is String && item['subTypeOfActivity'] == "[]") {
@@ -55,25 +48,19 @@ class GetNetworkProvider extends GetConnect {
                   return ResponsegetDsRdetials.fromJson(item);
                 })
                 .toList();
-            print('DSR daily activity list retrieved successfully');
-            onSuccess(DSRdailyAcivityList);
+            onSuccess(dSRdailyAcivityList);
           } else {
-            print('Error: Expected a list in the "Table" field');
             onFailed('Failed to get DSR details!');
           }
         } else {
-          print('Error Description: ${responseDataJson['errorDescription']}');
           onFailed(responseDataJson['errorDescription']);
         }
       } else {
-        print('Error: ${response.statusCode} - ${response.body}');
         onFailed('Failed to get DSR details!');
       }
     } catch (e) {
-      print('Exception: $e');
       onFailed('Failed to get DSR details!');
     }
-    print('DSR get provider executed');
   }
 
   Future<dynamic> getSubTypeOfActivity({
@@ -82,24 +69,19 @@ class GetNetworkProvider extends GetConnect {
     required Function(String? error) onFailed,
   }) async {
     try {
-      String resourcesUrl = (baseurl! + DSRApiEndPoints().DSRdailyActivityReport);
+      String resourcesUrl = (baseurl! + DSRApiEndPoints().dSRdailyActivityReport);
       final request = http.Request('POST', Uri.parse(resourcesUrl));
       request.body = jsonEncode(payload.toJson());
       request.headers['Content-Type'] = 'application/json';
 
       final interceptedRequest = await _interceptor.interceptRequest(request);
-      print('Request Headers: ${interceptedRequest.headers}');
-      print('Request Body: ${interceptedRequest.body}');
       final streamedResponse = await http.Client().send(interceptedRequest);
       final response = await http.Response.fromStream(streamedResponse);
 
       if (response.statusCode == 200) {
-        print('Status Code: ${response.statusCode}');
         var responseDataJson = jsonDecode(response.body);
-        print('Response Data JSON: $responseDataJson');
         if (responseDataJson['ResponseFlag'] == 1) {
           var nestedResponseJson = jsonDecode(responseDataJson['ResponseMessage']);
-          print('Nested Response JSON: $nestedResponseJson');
           if (nestedResponseJson['Table'] is List) {
             List<DSRSubTypeOfActivity> subTypeOfActivityList = (nestedResponseJson['Table'] as List)
                 .map((item) {
@@ -115,25 +97,19 @@ class GetNetworkProvider extends GetConnect {
                   return DSRSubTypeOfActivity.fromJson(item);
                 })
                 .toList();
-            print('DSR sub type of activity list retrieved successfully');
             onSuccess(subTypeOfActivityList);
           } else {
-            print('Error: Expected a list in the "Table" field');
             onFailed('Failed to get subtype activities!');
           }
         } else {
-          print('Error Description: ${responseDataJson['errorDescription']}');
           onFailed(responseDataJson['errorDescription']);
         }
       } else {
-        print('Error: ${response.statusCode} - ${response.body}');
         onFailed('Failed to get subtype activities!');
       }
     } catch (e) {
-      print('Exception: $e');
       onFailed('Failed to get subtype activities!');
     }
-    print('DSR get activity provider executed');
   }
 
   //// Manager
@@ -157,7 +133,6 @@ class GetNetworkProvider extends GetConnect {
 
       if (response.statusCode == 200) {
         var responseDataJson = jsonDecode(response.body);
-         print('Response Data JSON: $responseDataJson');
         if (responseDataJson['ResponseFlag'] == 1) {
           var nestedResponseJson =
               jsonDecode(responseDataJson['ResponseMessage']);

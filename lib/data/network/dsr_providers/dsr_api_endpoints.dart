@@ -20,6 +20,6 @@ class DSRApiEndPoints {
   // final String addCustomerLeadActivity = '/api/DSR/addDSRdtls';
 
   //User DAR GET
-  final String DSRdailyActivityReport = 'TeamTrack/api/MobileApp/getDSRdtls';
+  final String dSRdailyActivityReport = 'TeamTrack/api/MobileApp/getDSRdtls';
  
 }

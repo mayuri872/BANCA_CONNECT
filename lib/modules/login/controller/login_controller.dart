@@ -35,7 +35,6 @@ class LoginController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     selectedValue.value = value;
     await prefs.setString('selectedValue', value);
-    print('Selected value set: $value');
   }
 
   Future<void> loadSelectedValue() async {
@@ -43,7 +42,6 @@ class LoginController extends GetxController {
     String? savedValue = prefs.getString('selectedValue');
     if (savedValue != null) {
       selectedValue.value = savedValue;
-      print('Loaded selected value: $savedValue');
     }
   }
   
@@ -121,8 +119,6 @@ class LoginController extends GetxController {
     reqLogin.password = 'March@20252025';//password.text;//
   }
 
-  print('Encoded username: ${reqLogin.username}');
-  print('Encoded password: ${reqLogin.password}');
   await loginService.doLogin(
     body: reqLogin,
     onSuccess: (loginRes) async {
@@ -134,7 +130,6 @@ class LoginController extends GetxController {
         await prefs.setString('response', jsonEncode(loginRes));
         if (loginRes.token != null) {
           await TokenStorage.storeToken(loginRes.token!);
-          print('Token stored: ${loginRes.token!}');
         }
       }
 
@@ -155,7 +150,6 @@ class LoginController extends GetxController {
     },
     onFailed: (error) {
       Get.back();
-      print('Login failed: $error');
       invalidLoginDialog(context, error ?? UiString().invalidLoginAlert);
     },
   );

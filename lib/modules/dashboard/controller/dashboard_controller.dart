@@ -84,7 +84,6 @@ class DashboardController extends GetxController {
     if (savedValue != null) {
       
       selectedValue.value = savedValue;
-      print ('saved value $savedValue');
     }
   }
   Future<void> _getFlag() async {

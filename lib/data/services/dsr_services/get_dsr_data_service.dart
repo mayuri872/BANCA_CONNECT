@@ -63,21 +63,17 @@ class GetDataServices {
     required Function(String? error) onFailed,
   }) async {
     RequestgetDsRdetials requestUserNm = RequestgetDsRdetials(userName: username);
-    print('Request payload: $requestUserNm');
     await getNetworkProvider.getDSR(
       payload: requestUserNm,
       onSuccess: (darList) async {
-        print('DSR daily activity report retrieved successfully');
         onSuccess(darList);
         return;
       },
       onFailed: (error) {
-        print('Failed to retrieve DSR daily activity report: $error');
         onFailed(error);
         return;
       },
     );
-    print('DSR get service executed');
   }
 
   Future<dynamic> getSubTypeOfActivityData({
@@ -86,21 +82,17 @@ class GetDataServices {
     required Function(String? error) onFailed,
   }) async {
     RequestgetDsRdetials requestUserNm = RequestgetDsRdetials(userName: username);
-    print('Request payload: $requestUserNm');
     await getNetworkProvider.getSubTypeOfActivity(
       payload: requestUserNm,
       onSuccess: (subTypeList) async {
-        print('DSR sub type of activity data retrieved successfully');
         onSuccess(subTypeList);
         return;
       },
       onFailed: (error) {
-        print('Failed to retrieve DSR sub type of activity data: $error');
         onFailed(error);
         return;
       },
     );
-    print('DSR sub type get service executed');
   }
 
   Future<dynamic> getDSRManagerDashDataServices({

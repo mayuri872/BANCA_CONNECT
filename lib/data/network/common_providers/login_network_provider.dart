@@ -105,9 +105,6 @@ class LoginNetworkProvider extends GetConnect {
         resourcesUrl,
         body.toJson(),
       );
-      print('Request URL: $resourcesUrl');
-      print('Request Body: ${body.toJson()}');
-      print('Response: ${res.bodyString}');
 
       var jsonData = jsonDecode(res.bodyString ?? '');
       if (jsonData['ResponseFlag'] == 1) {
@@ -130,7 +127,6 @@ class LoginNetworkProvider extends GetConnect {
         onFailed(jsonData['ResponseMessage']);
       }
     } catch (e) {
-      print('Error: $e');
       onFailed('Something went wrong. Please try again.');
     }
   }
@@ -144,15 +140,11 @@ class LoginNetworkProvider extends GetConnect {
       String resourcesUrl =
           (baseurl! + DSRApiEndPoints().login);
       final encryptedData = encryptAES(jsonEncode(body.toJson()));
-      print(jsonEncode(body.toJson()));
       final requestBody = jsonEncode({'request': encryptedData});
       final res = await post(
         resourcesUrl,
         requestBody,
       );
-      print('Request URL: $resourcesUrl');
-      print('Request Body: $requestBody');
-      print('Response: ${res.bodyString}');
       var jsonData = jsonDecode(res.bodyString ?? '');
       if (jsonData['ResponseFlag'] == 1) {
         List<dynamic> tableData = jsonDecode(jsonData['ResponseMessage'])['Table'];
@@ -175,7 +167,6 @@ class LoginNetworkProvider extends GetConnect {
       }
       
     } catch (e) {
-      print('Error: $e');
       onFailed('Something went wrong. Please try again.');
     }
   }

@@ -75,7 +75,6 @@ class MobileLoginView extends GetView<LoginController> {
   }
 
  Widget userTypeDropDown() {
-    print("Building userTypeDropDown");
     return Padding(
       padding: AppPadding().inputPadding,
       child: InputDecorator(

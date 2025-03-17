@@ -10,7 +10,6 @@ class TokenInterceptor {
     String? token = await TokenStorage.getToken();
     if (token != null) {
       request.headers['Authorization'] = token; // No 'Bearer' prefix
-      print('Token added to request headers: $token');
     }
     return request;
   }
@@ -21,7 +20,6 @@ class TokenInterceptor {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.remove('token');
       await prefs.remove('authData');
-      print('Session expired, token removed');
       Get.snackbar('Session expired', 'Please log in again.');
       Get.offAllNamed('/login');
     }

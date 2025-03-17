@@ -26,7 +26,6 @@ class _SideMenuState extends State<SideMenu> {
     String? savedValue = prefs.getString('selectedValue');
     if (savedValue != null) {
       selectedValue.value = savedValue;
-      print('saved value $savedValue');
     }
   }
 
