@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../../../environment/environment.dart';
 import '../../models/dsr_report/dsr_report_model.dart';
+import '../../models/login/manager_dashboard_model.dart';
 import '../../services/interceptor/token_interceptor.dart';
 import 'dsr_api_endpoints.dart';
 
@@ -26,6 +27,9 @@ class GetNetworkProvider extends GetConnect {
       final interceptedRequest = await _interceptor.interceptRequest(request);
       print('Request Headers: ${interceptedRequest.headers}');
       print('Request Body: ${interceptedRequest.body}');
+      print('resourcesUrl: $resourcesUrl');
+    print('Request: ${payload.toJson()}');
+
       final streamedResponse = await http.Client().send(interceptedRequest);
       final response = await http.Response.fromStream(streamedResponse);
 
@@ -130,5 +134,48 @@ class GetNetworkProvider extends GetConnect {
       onFailed('Failed to get subtype activities!');
     }
     print('DSR get activity provider executed');
+  }
+
+  //// Manager
+
+  Future<dynamic> getDSRMangerDashDataProvider({
+    required RequestManagerDashModel payload,
+    required Function(List<ResponseManagerDashModel> responseManagerList)
+        onSuccess,
+    required Function(String? error) onFailed,
+  }) async {
+    try {
+       String resourcesUrl = 'https://online.futuregenerali.in/TeamTrack/api/MobileApp/getDSRleaders';
+      final request = http.Request('POST', Uri.parse(resourcesUrl));
+      request.body = jsonEncode(payload.toJson());
+      request.headers['Content-Type'] = 'application/json';
+
+      final interceptedRequest = await _interceptor.interceptRequest(request);
+
+      final streamedResponse = await http.Client().send(interceptedRequest);
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        var responseDataJson = jsonDecode(response.body);
+         print('Response Data JSON: $responseDataJson');
+        if (responseDataJson['ResponseFlag'] == 1) {
+          var nestedResponseJson =
+              jsonDecode(responseDataJson['ResponseMessage']);
+          List<ResponseManagerDashModel> responseManagerList =
+              (nestedResponseJson['Table'] as List)
+                  .map((item) => ResponseManagerDashModel.fromJson(item))
+                  .toList();
+          onSuccess(responseManagerList);
+        } else {
+          onFailed(responseDataJson['errorDescription']);
+        }
+      } else {
+        onFailed('Failed to get data!');
+        return;
+      }
+    } catch (e) {
+      onFailed('Failed to get data!');
+      return;
+    }
   }
 }

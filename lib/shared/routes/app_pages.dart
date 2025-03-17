@@ -21,6 +21,8 @@ import '../../modules/manger/dar_manager_modules/reports/view/reports_view.dart'
 import '../../modules/manger/dar_manager_modules/team_activity/binding/teams_binding.dart';
 import '../../modules/manger/dar_manager_modules/team_activity/view/team_activity_dashboard.dart';
 import '../../modules/manger/dar_manager_modules/team_activity/view/team_activity_report.dart';
+import '../../modules/manger/dsr_manager_modules/dsr_manager_dashboard/binding/dsr_manager_dashboard_binding.dart';
+import '../../modules/manger/dsr_manager_modules/dsr_manager_dashboard/view/dsr_manager_dashboard.dart';
 import '../../modules/user/dar_user_modules/dar_activity/binding/dar_activity_binding.dart';
 import '../../modules/user/dar_user_modules/dar_activity/view/create_daily_activity.dart';
 import '../../modules/user/dar_user_modules/dar_activity/view/daily_activity_report.dart';
@@ -142,6 +144,10 @@ class AppPages {
         GetPage(
         name: AppRoutes.managerleadReports,
         page: () => LeadReportView(),
-        binding: LeadReportBinding())
+        binding: LeadReportBinding()),
+         GetPage(
+        name: AppRoutes.dsrManagerDashboardReport,
+        page: () => DSRManagerDashboardView(),
+        binding: DSRManagerDashboardBinding())
   ];
 }

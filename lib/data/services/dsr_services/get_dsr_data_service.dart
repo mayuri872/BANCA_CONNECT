@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../models/dsr_report/dsr_report_model.dart';
+import '../../models/login/manager_dashboard_model.dart';
 import '../../network/dsr_providers/get_dsr_network_provider.dart';
 
 
@@ -100,5 +101,25 @@ class GetDataServices {
       },
     );
     print('DSR sub type get service executed');
+  }
+
+  Future<dynamic> getDSRManagerDashDataServices({
+    required String userName,
+    required Function(List<ResponseManagerDashModel> responseManagerDash)
+        onSuccess,
+    required Function(String? error) onFailed,
+  }) async {
+    RequestManagerDashModel requestUserName = RequestManagerDashModel(username: userName);
+    await getNetworkProvider.getDSRMangerDashDataProvider(
+      payload: requestUserName,
+      onSuccess: (managerDashList) async {
+        onSuccess(managerDashList);
+        return;
+      },
+      onFailed: (error) {
+        onFailed(error);
+        return;
+      },
+    );
   }
 }

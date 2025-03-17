@@ -35,4 +35,9 @@ class ApiEndPoints {
   final String getDSRlastday= 'HealthSalesConnect/api/Health/getDSRlastday';
   final String getDSRlastMonth= 'HealthSalesConnect/api/Health/getDSRlastMonth';
   final String getDSRleaders= 'HealthSalesConnect/api/Health/getDSRleaders';
+  
+
+
+  // // DSR manger get 
+  // final String getDSRleaders= 'HealthSalesConnect/api/Health/getDSRleaders';
 }

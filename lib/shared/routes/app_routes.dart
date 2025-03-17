@@ -36,6 +36,8 @@ class AppRoutes {
   static const String managerAgentLeadActivityReport = '/managerAgentLeadActivityReport';
   static const String managerCustLeadReport = '/managerCustLeadReport';
   static const String managerCustLeadActivityReport = '/managerCustLeadActivityReport';
+
+  static const String dsrManagerDashboardReport = '/dsrManagerDashboardReport';
   
   
 }

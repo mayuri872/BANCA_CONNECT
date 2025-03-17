@@ -40,19 +40,22 @@ class CustomerLeadActivityReport extends GetView<CustomerLeadController> {
                 controller.isSearching.value ? Icons.close : Icons.search)),
           ),
           IconButton(
-              onPressed: () {
+                onPressed: () async {
+                await controller.getCustomerLeadActivitytData();
+                Get.toNamed(AppRoutes.addcustomerLeadActivity);
+              },
+
+              icon: const Icon(Icons.add))
+        ],
+        leading: BackButton(
+          style: ButtonStyle(iconSize: WidgetStateProperty.all(20)),
+          onPressed: () {
             if (kIsWeb) {
           Get.offNamed(AppRoutes.webdashboard);
         } else {
           Get.offNamed(AppRoutes.dashboard);
         }
           },
-
-              icon: const Icon(Icons.add))
-        ],
-        leading: BackButton(
-          style: ButtonStyle(iconSize: WidgetStateProperty.all(20)),
-          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Obx(() {

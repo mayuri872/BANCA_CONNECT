@@ -76,8 +76,8 @@ class LoginNetworkProvider extends GetConnect {
   //     onFailed('Something went wrong. Please try again.');
   //   }
   // }
-
- userLogin({
+  // 
+  userLogin({
     required RequestLogin body,
     required String userType,
     required Function(ResponseLogin resMember, RequestLogin body) onSuccess,
@@ -173,6 +173,7 @@ class LoginNetworkProvider extends GetConnect {
       } else {
         onFailed(jsonData['ResponseMessage']);
       }
+      
     } catch (e) {
       print('Error: $e');
       onFailed('Something went wrong. Please try again.');

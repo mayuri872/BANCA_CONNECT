@@ -4,7 +4,6 @@ import 'package:dsr_clone/data/models/login/login_model.dart';
 import 'package:dsr_clone/data/services/common_servces/login_service.dart';
 import 'package:dsr_clone/modules/login/view/login_dialog.dart';
 import 'package:dsr_clone/shared/constant/ui_string.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +18,7 @@ class LoginController extends GetxController {
   var randomString = ''.obs;
   var isVerified = false.obs;
   final TextEditingController captacha = TextEditingController();
-    var selectedValue = 'Banca Connect'.obs;
+  var selectedValue = 'Banca Connect'.obs;
   final List<String> dropdownItems = ['Banca Connect', 'Health Sales Connect'];
 
    LoginController(this.loginService);
@@ -47,8 +46,7 @@ class LoginController extends GetxController {
       print('Loaded selected value: $savedValue');
     }
   }
-
-
+  
   void togglePasswordVisibility() {
     passwordVisible.value = !passwordVisible.value;
   }
@@ -57,8 +55,7 @@ class LoginController extends GetxController {
     const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     const length = 6;
     final random = Random();
-    randomString.value = String.fromCharCodes(List.generate(
-        length, (index) => letters.codeUnitAt(random.nextInt(letters.length))));
+    randomString.value = String.fromCharCodes(List.generate(length, (index) => letters.codeUnitAt(random.nextInt(letters.length))));
   }
 
   void resetVerification() {
@@ -117,11 +114,11 @@ class LoginController extends GetxController {
 
   RequestLogin reqLogin = RequestLogin();
   if (selectedValue.value == 'Health Sales Connect') {
-    reqLogin.username = base64.encode(utf8.encode(username.text));
-    reqLogin.password = base64.encode(utf8.encode(password.text));
+    reqLogin.username = base64.encode(utf8.encode(username.text));//
+    reqLogin.password = base64.encode(utf8.encode(password.text));//
   } else {
-    reqLogin.username = username.text;
-    reqLogin.password = password.text;
+    reqLogin.username = '898467';//;username.text;//
+    reqLogin.password = 'March@20252025';//password.text;//
   }
 
   print('Encoded username: ${reqLogin.username}');
@@ -142,11 +139,11 @@ class LoginController extends GetxController {
       }
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (kIsWeb) {
-          Get.offAndToNamed(AppRoutes.webdashboard);
-        } else {
+        // if (kIsWeb) {
+        //   Get.offAndToNamed(AppRoutes.webdashboard);
+        // } else {
           Get.offAndToNamed(AppRoutes.dashboard);
-        }
+       // }
       });
 
       ScaffoldMessenger.of(context).showSnackBar(

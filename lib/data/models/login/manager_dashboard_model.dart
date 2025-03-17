@@ -9,8 +9,7 @@ class RequestManagerDashModel {
   RequestManagerDashModel.fromJson(Map<String, dynamic> json) {
      username= json['userName'];
   }
-
-  Map<String, dynamic> toJson() {
+Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['userName']= username;
     return data;

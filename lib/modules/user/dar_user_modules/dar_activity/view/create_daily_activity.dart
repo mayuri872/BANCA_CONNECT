@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:dsr_clone/shared/style/app_colors.dart';
 import 'package:dsr_clone/shared/style/app_text_style.dart';
 import 'package:flutter/material.dart';
@@ -74,12 +75,11 @@ class AddDailyActivityReport extends GetView<DarActivityController> {
                             controller.activityType.value = value;
                             controller.getSubTypeOfAcitivityApiData(value);
                             if (controller.activityType.value == 'Sales Call') {
-                               controllerLead.getAgentLeadApiData();
-                               controller.getDSRCustLeadDtlsApiData();
+                              controllerLead.getAgentLeadApiData();
+                              controller.getDSRCustLeadDtlsApiData();
                             } else {
                               controller.getDSRAgentLeadDtlsApiData();
                             }
-                            
                           }
                         },
                         items: controller.activitylist.map((item) {
@@ -366,19 +366,28 @@ class AddDailyActivityReport extends GetView<DarActivityController> {
                           isFreeze: false,
                           labelText: 'Agent Lead Details',
                         ),
-                        child: DropdownButton<String>(
-                          value: controller.agentLeadDetailsList
-                                  .contains(controller.agentLeadType.value)
+                        child: DropdownSearch<String>(
+                          popupProps: PopupProps.menu(
+                            showSearchBox: true,
+                            itemBuilder: (context, item, isSelected) {
+                              return ListTile(
+                                title: Text(item,
+                                    style: const TextStyle(fontSize: 12)),
+                              );
+                            },
+                          ),
+                          items: controller.agentLeadDetailsList,
+                          selectedItem: controller.agentLeadDetailsList.contains(controller.agentLeadType.value)
                               ? controller.agentLeadType.value
                               : null,
-                          hint: const Text('Select type of activity'),
-                          underline: Container(),
-                          style: const TextStyle(
-                              fontSize: 12, color: AppColors.black),
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          iconEnabledColor: AppColors.black,
-                          isExpanded: true,
-                          isDense: true,
+                          dropdownDecoratorProps: const DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                              hintText: 'Select type of activity',
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                            fontSize: 12, color: AppColors.black),
+                            ),
+                          ),
                           onChanged: (value) {
                             if (value != null) {
                               controller.agentLeadType.value = value;
@@ -392,13 +401,6 @@ class AddDailyActivityReport extends GetView<DarActivityController> {
                               controller.agentContactNoController.text = selectedAgentLead.toWhomMeetNumber!;
                             }
                           },
-                          items: controller.agentLeadDetailsList.map((item) {
-                            return DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(fontSize: 12)),
-                            );
-                          }).toList(),
                         ),
                       ),
                     );
@@ -418,31 +420,34 @@ class AddDailyActivityReport extends GetView<DarActivityController> {
                           isFreeze: false,
                           labelText: 'Customer Lead Details',
                         ),
-                        child: DropdownButton<String>(
-                          value: controller.custLeadDetailsList
+                        child: DropdownSearch<String>(
+                          popupProps: PopupProps.menu(
+                            showSearchBox: true,
+                            itemBuilder: (context, item, isSelected) {
+                              return ListTile(
+                                title: Text(item,
+                                    style: const TextStyle(fontSize: 12)),
+                              );
+                            },
+                          ),
+                          items: controller.custLeadDetailsList,
+                          selectedItem: controller.custLeadDetailsList
                                   .contains(controller.customerLeadType.value)
                               ? controller.customerLeadType.value
                               : null,
-                          hint: const Text('Select type of activity'),
-                          underline: Container(),
-                          style: const TextStyle(
-                              fontSize: 12, color: AppColors.black),
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          iconEnabledColor: AppColors.black,
-                          isExpanded: true,
-                          isDense: true,
+                          dropdownDecoratorProps: const DropDownDecoratorProps(
+                            dropdownSearchDecoration: InputDecoration(
+                              hintText: 'Select type of activity',
+                              border: InputBorder.none,
+                               hintStyle: TextStyle(
+                            fontSize: 12, color: AppColors.black),
+                            ),
+                          ),
                           onChanged: (value) {
                             if (value != null) {
                               controller.customerLeadType.value = value;
                             }
                           },
-                          items: controller.custLeadDetailsList.map((item) {
-                            return DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(item,
-                                  style: const TextStyle(fontSize: 12)),
-                            );
-                          }).toList(),
                         ),
                       ),
                     );

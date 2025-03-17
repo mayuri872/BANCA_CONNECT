@@ -55,14 +55,15 @@ class GetDataServices {
     );
   }
 
+  
+
   Future<dynamic> getManagerDashDataServices({
     required String userName,
     required Function(List<ResponseManagerDashModel> responseManagerDash)
         onSuccess,
     required Function(String? error) onFailed,
   }) async {
-    RequestManagerDashModel requestUserName =
-        RequestManagerDashModel(username: userName);
+    RequestManagerDashModel requestUserName = RequestManagerDashModel(username: userName);
     await getNetworkProvider.getMangerDashDataProvider(
       request: requestUserName,
       onSuccess: (managerDashList) async {

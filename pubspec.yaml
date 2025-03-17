@@ -21,6 +21,7 @@ dependencies:
   encrypt:
   fluttertoast:
   loading_animation_widget:
+  dropdown_search: ^5.0.2
   
 
 dev_dependencies:

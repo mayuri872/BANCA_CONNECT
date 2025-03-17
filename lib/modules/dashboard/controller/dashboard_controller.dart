@@ -1,8 +1,8 @@
 import 'dart:convert';
-
+ 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+ 
 // class DashboardController extends GetxController {
 //   Toast toast = Toast();
 //   bool sort = true;
@@ -10,17 +10,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 //   TextEditingController branchNameControler = TextEditingController(text: '');
 //   TextEditingController latitudeControler = TextEditingController(text: '');
 //   TextEditingController longitudeControler = TextEditingController(text: '');
-
+ 
 //   TextEditingController searchController = TextEditingController();
 //   final formKey = GlobalKey<FormState>();
-
+ 
 //   RxString name = "Dashboard".obs;
 //   RxBool isDataLoaded = false.obs;
-
+ 
 //   RxList<DashboardModel> filteredList = <DashboardModel>[].obs;
 //   RxList<DashboardModel> barnchMasterList = <DashboardModel>[].obs;
 //   RxString flag = "".obs;
-
+ 
 //   var sectionData = <Map<String, dynamic>>[
 //     {
 //       'title': 'Dashboard',
@@ -38,14 +38,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 //       'image': 'assets/teams.png'
 //     },
 //   ].obs;
-
+ 
 //   @override
 //   void onInit() {
 //     filteredList.value = barnchMasterList;
 //     super.onInit();
 //     _getFlag();
 //   }
-
+ 
 //   Future<void> _getFlag() async {
 //     SharedPreferences prefs = await SharedPreferences.getInstance();
 //     String? loginResponseString = prefs.getString('loginResponse');
@@ -70,33 +70,34 @@ class DashboardController extends GetxController {
   RxString selectedValue = ''.obs;
   RxString flag = "".obs;
   RxString addAccess = "".obs;
-
+ 
   @override
   void onInit() {
     super.onInit();
     loadSelectedValue();
-    getEmpDetails();
+   _getFlag();
   }
-
+ 
   Future<void> loadSelectedValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedValue = prefs.getString('selectedValue');
     if (savedValue != null) {
+      
       selectedValue.value = savedValue;
       print ('saved value $savedValue');
     }
   }
-  // Future<void> _getFlag() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? loginResponseString = prefs.getString('loginResponse');
-  //   if (loginResponseString != null) {
-  //     Map<String, dynamic> loginResponseMap = jsonDecode(loginResponseString);
-  //     flag.value = loginResponseMap['flag'];
-  //     addAccess.value = loginResponseMap['addAccess'];
-  //   }
-
+  Future<void> _getFlag() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? loginResponseString = prefs.getString('loginResponse');
+    if (loginResponseString != null) {
+      Map<String, dynamic> loginResponseMap = jsonDecode(loginResponseString);
+      flag.value = loginResponseMap['flag'];
+      addAccess.value = loginResponseMap['addAccess'];
+    }
+ 
    
-  // }
+  }
    Future<Map<String, String?>> getEmpDetails() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? loginResponseString = prefs.getString('loginResponse');
