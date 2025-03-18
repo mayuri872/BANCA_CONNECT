@@ -14,54 +14,63 @@ class GetNetworkProvider extends GetConnect {
   final TokenInterceptor _interceptor = TokenInterceptor();
 
   Future<dynamic> getDSR({
-    required RequestgetDsRdetials payload,
-    required Function(List<ResponsegetDsRdetials> dSRdailyActivityList) onSuccess,
-    required Function(String? error) onFailed,
-  }) async {
-    try {
-      String resourcesUrl = (baseurl! + DSRApiEndPoints().dSRdailyActivityReport);
-      final request = http.Request('POST', Uri.parse(resourcesUrl));
-      request.body = jsonEncode(payload.toJson());
-      request.headers['Content-Type'] = 'application/json';
+  required RequestgetDsRdetials payload,
+  required Function(List<ResponsegetDsRdetials> dSRdailyActivityList) onSuccess,
+  required Function(String? error) onFailed,
+}) async {
+  try {
+    String resourcesUrl = 'https://online.futuregenerali.in/TeamTrack/api/MobileApp/getDSRdtls';//baseurl! + DSRApiEndPoints().dSRdailyActivityReport;
+    final request = http.Request('POST', Uri.parse(resourcesUrl));
+    request.body = jsonEncode(payload.toJson());
+    request.headers['Content-Type'] = 'application/json';
 
-      final interceptedRequest = await _interceptor.interceptRequest(request);
+    // Print the request URL and payload for debugging
+    print('Request URL: $resourcesUrl');
+    print('Request Payload: ${request.body}');
 
-      final streamedResponse = await http.Client().send(interceptedRequest);
-      final response = await http.Response.fromStream(streamedResponse);
+    final interceptedRequest = await _interceptor.interceptRequest(request);
+     print('Token: ${interceptedRequest.headers['Authorization']}');
 
-      if (response.statusCode == 200) {
-        var responseDataJson = jsonDecode(response.body);
-        if (responseDataJson['ResponseFlag'] == 1) {
-          var nestedResponseJson = jsonDecode(responseDataJson['ResponseMessage']);
-          if (nestedResponseJson['Table'] is List) {
-            List<ResponsegetDsRdetials> dSRdailyAcivityList = (nestedResponseJson['Table'] as List)
-                .map((item) {
-                  // Handle subTypeOfActivity field
-                  if (item['subTypeOfActivity'] is String && item['subTypeOfActivity'] == "[]") {
-                    item['subTypeOfActivity'] = [];
-                  }
-                  // Ensure all fields are parsed as the correct types
-                  item['ID'] = item['ID'].toString();
-                  item['team_Leader'] = item['team_Leader'].toString();
-                  item['auth_role'] = item['auth_role'].toString();
-                  item['userName'] = item['userName'].toString();
-                  return ResponsegetDsRdetials.fromJson(item);
-                })
-                .toList();
-            onSuccess(dSRdailyAcivityList);
-          } else {
-            onFailed('Failed to get DSR details!');
-          }
+    final streamedResponse = await http.Client().send(interceptedRequest);
+    final response = await http.Response.fromStream(streamedResponse);
+
+    // Print the response status code and body for debugging
+    print('Response Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      var responseDataJson = jsonDecode(response.body);
+      if (responseDataJson['ResponseFlag'] == 1) {
+        var nestedResponseJson = jsonDecode(responseDataJson['ResponseMessage']);
+        if (nestedResponseJson['Table'] is List) {
+          List<ResponsegetDsRdetials> dSRdailyActivityList = (nestedResponseJson['Table'] as List)
+              .map((item) {
+                // Handle subTypeOfActivity field
+                if (item['subTypeOfActivity'] is String && item['subTypeOfActivity'] == "[]") {
+                  item['subTypeOfActivity'] = [];
+                }
+                // Ensure all fields are parsed as the correct types
+                item['ID'] = item['ID'].toString();
+                item['team_Leader'] = item['team_Leader'].toString();
+                item['auth_role'] = item['auth_role'].toString();
+                item['userName'] = item['userName'].toString();
+                return ResponsegetDsRdetials.fromJson(item);
+              })
+              .toList();
+          onSuccess(dSRdailyActivityList);
         } else {
-          onFailed(responseDataJson['errorDescription']);
+          onFailed('Failed to get DSR details!');
         }
       } else {
-        onFailed('Failed to get DSR details!');
+        onFailed(responseDataJson['errorDescription']);
       }
-    } catch (e) {
+    } else {
       onFailed('Failed to get DSR details!');
     }
+  } catch (e) {
+    onFailed('Failed to get DSR details!');
   }
+}
 
   Future<dynamic> getSubTypeOfActivity({
     required RequestgetDsRdetials payload,

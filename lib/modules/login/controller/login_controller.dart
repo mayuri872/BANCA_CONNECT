@@ -115,8 +115,8 @@ class LoginController extends GetxController {
     reqLogin.username = base64.encode(utf8.encode(username.text));//
     reqLogin.password = base64.encode(utf8.encode(password.text));//
   } else {
-    reqLogin.username = '898467';//;username.text;//
-    reqLogin.password = 'March@20252025';//password.text;//
+    reqLogin.username = '899436';//;username.text;//
+    reqLogin.password = 'Password@2024';//password.text;//
   }
 
   await loginService.doLogin(
@@ -125,8 +125,8 @@ class LoginController extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('encodedUsername', reqLogin.username!);
        print('encodedUsername: ${reqLogin.username!}');
-      await prefs.setString('Username', username.text);
-      print('Username: ${username.text}');
+      // await prefs.setString('Username', username.text);
+      // print('Username: ${username.text}');
 
       if (selectedValue.value == 'Banca Connect') {
         await prefs.setString('response', jsonEncode(loginRes));

@@ -15,7 +15,8 @@ class DsrActivityController extends GetxController {
 
   Future<void> getDailyActivityReportDataDSR() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('Username'); // Retrieve as String
+     String? username = prefs.getString('encodedUsername');
+    print('username$username');
     if (username != null) {
       await getDataService.getDSRDailyActivityReport(
         username: int.parse(username), // Convert to int
