@@ -115,7 +115,7 @@ class GetNetworkProvider extends GetConnect {
   //// Manager
 
   Future<dynamic> getDSRMangerDashDataProvider({
-    required RequestManagerDashModel payload,
+    required RequestgetDsRdetials payload,
     required Function(List<ResponseManagerDashModel> responseManagerList)
         onSuccess,
     required Function(String? error) onFailed,

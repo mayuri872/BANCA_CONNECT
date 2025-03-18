@@ -124,7 +124,9 @@ class LoginController extends GetxController {
     onSuccess: (loginRes) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('encodedUsername', reqLogin.username!);
+       print('encodedUsername: ${reqLogin.username!}');
       await prefs.setString('Username', username.text);
+      print('Username: ${username.text}');
 
       if (selectedValue.value == 'Banca Connect') {
         await prefs.setString('response', jsonEncode(loginRes));

@@ -96,12 +96,12 @@ class GetDataServices {
   }
 
   Future<dynamic> getDSRManagerDashDataServices({
-    required String userName,
+    required int userName,
     required Function(List<ResponseManagerDashModel> responseManagerDash)
         onSuccess,
     required Function(String? error) onFailed,
   }) async {
-    RequestManagerDashModel requestUserName = RequestManagerDashModel(username: userName);
+    RequestgetDsRdetials requestUserName = RequestgetDsRdetials(userName: userName);
     await getNetworkProvider.getDSRMangerDashDataProvider(
       payload: requestUserName,
       onSuccess: (managerDashList) async {

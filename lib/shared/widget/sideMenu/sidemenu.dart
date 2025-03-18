@@ -112,8 +112,7 @@ class _SideMenuState extends State<SideMenu> {
                 if (empDetails['flag'] == '2' || empDetails['flag'] == '4')
                   ListTile(
                     leading: const Icon(Icons.dashboard, size: 20.0),
-                    title: const Text('Dashboard',
-                        style: TextStyle(fontSize: 15.0)),
+                    title: const Text('Dashboard',style: TextStyle(fontSize: 15.0)),
                     onTap: () {
                       if(selectedValue.value == 'Banca Connect'){
                         Get.offAllNamed(AppRoutes.dsrManagerDashboardReport);
@@ -121,7 +120,6 @@ class _SideMenuState extends State<SideMenu> {
                       else{
                         Get.offAllNamed(AppRoutes.managerDashboard);
                       }
-                      
                     },
                   ),
                 if (empDetails['flag'] == '2' || empDetails['flag'] == '4')
